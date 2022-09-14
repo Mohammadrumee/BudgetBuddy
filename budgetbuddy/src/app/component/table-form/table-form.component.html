@@ -1,0 +1,18 @@
+<div>
+    <form (ngSubmit)="saveExpense()">
+
+      <label for="amount"><p>Amount:</p></label>
+      <input type="number" name="amount" [(ngModel)]="expense.amount">
+      
+      <label for="description"><p>Description:</p></label>
+      <input type="text" name="description" [(ngModel)]="expense.description">
+
+      <label for="category"><p>Category</p></label>
+      <select name="category" [(ngModel)]="expense.category">
+        <option value='' disabled selected>Select the Category</option>
+        <option *ngFor="let name of categoryEnum" [value]="name"> {{[name]}} </option>
+      </select>
+
+      <button type="submit">Add Expense</button>
+    </form>
+</div>

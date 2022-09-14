@@ -1,0 +1,23 @@
+<h1>Expenses</h1>
+
+<div *ngIf="expenseList.length > 0; then thenBlock else elseBlock"></div>
+
+<ng-template #thenBlock>
+    <table>
+        <thead>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Amount</th>
+        </thead>
+
+        <tbody *ngFor="let expense of expenseList; index as i" >
+            <td>{{expense.description}}</td>
+            <td>{{expense.category}}</td>
+            <td>{{expense.amount | currency }}</td>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #elseBlock>
+    <p><b>You dont have any expense!!!</b></p>
+</ng-template>
