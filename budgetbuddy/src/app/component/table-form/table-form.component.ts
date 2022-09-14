@@ -14,13 +14,13 @@ import { ExpenseService } from 'src/app/service/expense.service';
 export class TableFormComponent implements OnInit {
 
   totalExpense:number = 0;
+
+  totalBudget:number = 0;
   
- expense:Expense | any = [];
+  expense:Expense | any = [];
 
   category = Category;
   categoryEnum :string [] =[];
-
-  budgetAmount = 0;
   
   constructor(private expenseService:ExpenseService) {
     this.categoryEnum=Object.keys(this.category);  
@@ -30,37 +30,40 @@ export class TableFormComponent implements OnInit {
     this.expenseService.getTotalExpense()
       .subscribe((expense) => {
         this.totalExpense = expense.totalExpense;
-      });
+    });
+
+    this.expenseService.getTotalBudget()
+    .subscribe((expense) => {
+      this.totalBudget = expense.totalBudget;
+    });
   }
 
   saveExpense() : void{
 
-    if(this.budgetAmount == 0){
+    if(this.totalBudget == 0){
       alert("Please add total budget first!");
-    }else {
-      let count:TotalExpense = {
-        totalExpense: this.totalExpense + this.expense.amount
+    } else {
+
+      let totalEx = this.totalExpense + this.expense.amount;
+
+      if(totalEx > this.totalBudget){
+        alert("Expense is more then Budget!!!");
+      } else {
+        let count:TotalExpense = {
+          totalExpense: this.totalExpense + this.expense.amount
+        }
+        this.expenseService.setTotalExpense(count);
+        this.expenseService.addExpense(this.expense);
       }
-      this.expenseService.setTotalExpense(count);
-      this.expenseService.addExpense(this.expense);
     }
     this.expense = [];
   }
 
   budgetExpense() :void{
     let count:TotalBudget = {
-      totalBudget: this.budgetAmount
+      totalBudget: this.totalBudget
     }
     this.expenseService.setTotalBudget(count);
   }
-
-  // @ViewChild('userForm') userForm: NgForm | undefined;
-
-  // value : string | undefined;
-  
-  // submitForm() : void {
-  //   // if(this.userForm !== undefined){
-  //     console.log(this.userForm);
-  //   }
 
 }
