@@ -16,3 +16,13 @@
       <button type="submit">Add Expense</button>
     </form>
 </div>
+
+
+<div>
+  <form (ngSubmit)="budgetExpense()">
+    <label for="budgetAmount"><p>Budget Amount:</p></label>
+    <input type="number" name="budgetAmount" [(ngModel)]="budgetAmount">
+    <button type="submit">Add Budget</button>
+  </form>
+</div>
+

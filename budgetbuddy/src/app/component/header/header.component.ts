@@ -10,7 +10,7 @@ export class HeaderComponent implements OnInit {
 
   totalExpense :number = 0;
 
-  totalBudget :number = 1000;
+  totalBudget :number = 0;
   
   constructor(private expenseService:ExpenseService) { }
 
@@ -19,6 +19,11 @@ export class HeaderComponent implements OnInit {
     this.expenseService.getTotalExpense()
       .subscribe((expense) => {
         this.totalExpense = expense.totalExpense;
+      });
+
+      this.expenseService.getTotalBudget()
+      .subscribe((expense) => {
+        this.totalBudget = expense.totalBudget;
       });
   }
 

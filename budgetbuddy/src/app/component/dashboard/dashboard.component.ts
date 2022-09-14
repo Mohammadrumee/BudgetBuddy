@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { groupBy } from 'rxjs';
+import { groupBy, Observable } from 'rxjs';
 import { Expense } from 'src/app/interface/expense';
 import { ExpenseService } from 'src/app/service/expense.service';
 
@@ -14,17 +14,18 @@ export class DashboardComponent implements OnInit {
 
   
   expenseList :Expense [] = [];
+  result: { amount: number; values: Expense[]; }[] = [];
 
   constructor(private expenseService:ExpenseService) { }
 
   ngOnInit(): void {
-    this.getAllExpense();  
+    this.getAllExpense();
   }
 
   getAllExpense() : void{
     this.expenseList = this.expenseService.getAllExpense();
-
   }
+
 
 
 }

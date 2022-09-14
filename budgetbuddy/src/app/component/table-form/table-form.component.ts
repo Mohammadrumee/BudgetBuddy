@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/enum/category';
 import { Expense } from 'src/app/interface/expense';
+import { TotalBudget } from 'src/app/interface/total-budget';
 import { TotalExpense } from 'src/app/interface/total-expense';
 import { ExpenseService } from 'src/app/service/expense.service';
 
@@ -17,6 +18,8 @@ export class TableFormComponent implements OnInit {
 
   category = Category;
   categoryEnum :string [] =[];
+
+  budgetAmount = 0;
   
   constructor(private expenseService:ExpenseService) {
     this.categoryEnum=Object.keys(this.category);  
@@ -30,14 +33,23 @@ export class TableFormComponent implements OnInit {
   }
 
 saveExpense() : void{
+
+  if(this.budgetAmount == 0){
+    alert("Please add total budget first!");
+  }else {
     let count:TotalExpense = {
       totalExpense: this.totalExpense + this.expense.amount
     }
     this.expenseService.setTotalExpense(count);
-
     this.expenseService.addExpense(this.expense);
-
-    this.expense = [];
   }
+  this.expense = [];
+}
 
+  budgetExpense() :void{
+    let count:TotalBudget = {
+      totalBudget: this.budgetAmount
+    }
+    this.expenseService.setTotalBudget(count);
+  }
 }
