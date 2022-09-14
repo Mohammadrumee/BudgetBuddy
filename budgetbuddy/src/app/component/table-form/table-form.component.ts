@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Category } from 'src/app/enum/category';
 import { Expense } from 'src/app/interface/expense';
 import { TotalBudget } from 'src/app/interface/total-budget';
@@ -14,7 +15,7 @@ export class TableFormComponent implements OnInit {
 
   totalExpense:number = 0;
   
-  expense:Expense | any = [];
+ expense:Expense | any = [];
 
   category = Category;
   categoryEnum :string [] =[];
@@ -32,19 +33,19 @@ export class TableFormComponent implements OnInit {
       });
   }
 
-saveExpense() : void{
+  saveExpense() : void{
 
-  if(this.budgetAmount == 0){
-    alert("Please add total budget first!");
-  }else {
-    let count:TotalExpense = {
-      totalExpense: this.totalExpense + this.expense.amount
+    if(this.budgetAmount == 0){
+      alert("Please add total budget first!");
+    }else {
+      let count:TotalExpense = {
+        totalExpense: this.totalExpense + this.expense.amount
+      }
+      this.expenseService.setTotalExpense(count);
+      this.expenseService.addExpense(this.expense);
     }
-    this.expenseService.setTotalExpense(count);
-    this.expenseService.addExpense(this.expense);
+    this.expense = [];
   }
-  this.expense = [];
-}
 
   budgetExpense() :void{
     let count:TotalBudget = {
@@ -52,4 +53,14 @@ saveExpense() : void{
     }
     this.expenseService.setTotalBudget(count);
   }
+
+  // @ViewChild('userForm') userForm: NgForm | undefined;
+
+  // value : string | undefined;
+  
+  // submitForm() : void {
+  //   // if(this.userForm !== undefined){
+  //     console.log(this.userForm);
+  //   }
+
 }

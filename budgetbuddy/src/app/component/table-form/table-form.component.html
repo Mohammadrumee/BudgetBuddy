@@ -1,14 +1,14 @@
 <div>
-    <form (ngSubmit)="saveExpense()">
+    <form (ngSubmit)="saveExpense()" #testForm="ngForm" ngNativeValidate>
 
       <label for="amount"><p>Amount:</p></label>
-      <input type="number" name="amount" [(ngModel)]="expense.amount">
+      <input type="number" name="amount" [(ngModel)]="expense.amount" required="true">
       
       <label for="description"><p>Description:</p></label>
-      <input type="text" name="description" [(ngModel)]="expense.description">
+      <input type="text" name="description" [(ngModel)]="expense.description" required="true" minlength="3">
 
       <label for="category"><p>Category</p></label>
-      <select name="category" [(ngModel)]="expense.category">
+      <select name="category" [(ngModel)]="expense.category" required="true">
         <option value='' disabled selected>Select the Category</option>
         <option *ngFor="let name of categoryEnum" [value]="name"> {{[name]}} </option>
       </select>
@@ -25,4 +25,3 @@
     <button type="submit">Add Budget</button>
   </form>
 </div>
-
